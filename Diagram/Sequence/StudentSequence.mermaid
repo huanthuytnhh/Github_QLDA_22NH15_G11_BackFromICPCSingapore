@@ -1,0 +1,47 @@
+sequenceDiagram
+    participant Student
+    participant UI
+    participant Server
+    participant Database
+
+    %% Đăng nhập và hiển thị Dashboard
+    Student->>UI: Nhập thông tin đăng nhập
+    UI->>Server: Gửi yêu cầu xác thực đăng nhập
+    Server->>Database: Query thông tin học sinh
+    Database-->>Server: Trả về kết quả xác thực
+    Server-->>UI: Gửi token và dữ liệu dashboard
+    UI-->>Student: Hiển thị Student Dashboard (Thực đơn, điểm danh, xin nghỉ)
+
+    %% Xem thực đơn
+    Student->>UI: Chọn "Xem thực đơn"
+    UI->>Server: Yêu cầu thực đơn theo ngày
+    Server->>Database: Query thực đơn hôm nay
+    Database-->>Server: Trả về thực đơn
+    Server-->>UI: Gửi dữ liệu thực đơn
+    UI-->>Student: Hiển thị thực đơn hôm nay
+
+    %% Xin phép nghỉ
+    Student->>UI: Chọn "Xin phép nghỉ"
+    UI->>Student: Hiển thị form chọn ngày nghỉ và nhập lý do
+    Student->>UI: Nhập ngày nghỉ và lý do
+    UI->>Server: Gửi yêu cầu xin nghỉ
+    Server->>Database: Lưu yêu cầu nghỉ
+    Database-->>Server: Xác nhận lưu thành công
+    Server-->>UI: Gửi kết quả xin nghỉ
+    UI-->>Student: Hiển thị thông báo xin nghỉ thành công
+
+    %% Xem thông báo từ giáo viên/admin
+    Student->>UI: Chọn "Xem thông báo"
+    UI->>Server: Yêu cầu danh sách thông báo
+    Server->>Database: Query danh sách thông báo cho học sinh
+    Database-->>Server: Trả về danh sách thông báo
+    Server-->>UI: Gửi dữ liệu thông báo
+    UI-->>Student: Hiển thị danh sách thông báo
+
+    %% Xem báo cáo tài chính
+    Student->>UI: Chọn "Xem báo cáo tài chính"
+    UI->>Server: Yêu cầu dữ liệu báo cáo tài chính
+    Server->>Database: Query số tiền cuối tháng (sau khi trừ ngày nghỉ)
+    Database-->>Server: Trả về dữ liệu báo cáo
+    Server-->>UI: Gửi báo cáo tài chính
+    UI-->>Student: Hiển thị báo cáo tài chính

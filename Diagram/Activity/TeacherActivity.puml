@@ -1,0 +1,31 @@
+@startuml
+start
+
+:Hiển thị Teacher Dashboard;
+:Chọn chức năng;
+
+if (Chức năng được chọn là?) then (Điểm danh lớp)
+    :Xem danh sách học sinh trong lớp;
+    :Cập nhật trạng thái (Có mặt, Vắng mặt);
+    :Lưu trạng thái điểm danh;
+elseif (Xem danh sách học sinh)
+    :Hiển thị danh sách học sinh;
+    if (Tìm kiếm học sinh?) then (Có)
+        :Nhập thông tin tìm kiếm;
+        :Lọc danh sách học sinh;
+    endif
+elseif (Chỉnh sửa thông tin học sinh)
+    :Chọn học sinh cần chỉnh sửa;
+    :Nhập thông tin mới;
+    :Lưu thay đổi;
+elseif (Xem thực đơn)
+    :Xem thực đơn hôm nay;
+elseif (Gửi thông báo)
+    :Nhập nội dung thông báo;
+    :Chọn đối tượng nhận (học sinh/phụ huynh);
+    :Gửi thông báo;
+    :Theo dõi trạng thái gửi;
+endif
+
+stop
+@enduml

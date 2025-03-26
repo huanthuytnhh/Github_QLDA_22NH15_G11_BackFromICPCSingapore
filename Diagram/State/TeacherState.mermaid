@@ -1,0 +1,64 @@
+---
+config:
+  layout: elk
+  theme: default
+---
+stateDiagram
+  direction TB
+  state DD {
+    direction TB
+    [*] --> ChonLop:"Chọn lớp"
+    ChonLop --> XemDSHS_DD:"Xem danh sách học sinh trong lớp"
+    XemDSHS_DD --> CapNhatDD:"Cập nhật trạng thái điểm danh bán trú(Có mặt, Vắng)"
+    CapNhatDD --> LuuThayDoi_DD:"Lưu thay đổi"
+    LuuThayDoi_DD --> [*]
+[*]    ChonLop
+    XemDSHS_DD
+    CapNhatDD
+    LuuThayDoi_DD
+[*]  }
+  state DS {
+    direction TB
+    [*] --> XemDSHS:"Xem danh sách học sinh"
+    XemDSHS --> TimKiemHS:"Tìm kiếm theo tên hoặc lớp"
+    TimKiemHS --> [*]
+[*]    XemDSHS
+    TimKiemHS
+[*]  }
+  state CHS {
+    direction TB
+    [*] --> ChonHS:"Chọn học sinh cần chỉnh sửa"
+    ChonHS --> ChinhSuaThongTin:"Chỉnh sửa thông tin (Họ tên, địa chỉ, liên hệ)"
+    ChinhSuaThongTin --> LuuThongTin:"Lưu thông tin đã sửa"
+    LuuThongTin --> [*]
+[*]    ChonHS
+    ChinhSuaThongTin
+    LuuThongTin
+[*]  }
+  state TX {
+    direction TB
+    [*] --> HienThiTD:"Hiển thị thực đơn hôm nay"
+    HienThiTD --> [*]
+[*]    HienThiTD
+[*]  }
+  state GTB {
+    direction TB
+    [*] --> NhapNDTB:"Nhập nội dung thông báo"
+    NhapNDTB --> ChonDoiTuong:"Chọn đối tượng nhận "
+    ChonDoiTuong --> GuiTB:"Gửi thông báo"
+    GuiTB --> [*]
+[*]    NhapNDTB
+    ChonDoiTuong
+    GuiTB
+[*]  }
+  [*] --> Dashboard
+  Dashboard --> DD:Chọn "Điểm danh lớp"
+  Dashboard --> DS:Chọn "Xem danh sách học sinh"
+  Dashboard --> CHS:Chọn "Chỉnh sửa thông tin học sinh"
+  Dashboard --> TX:Chọn "Xem thực đơn"
+  Dashboard --> GTB:Chọn "Gửi thông báo"
+  DD:Điểm danh lớp
+  DS:Xem danh sách học sinh
+  CHS:Chỉnh sửa thông tin học sinh
+  TX:Xem thực đơn
+  GTB:Gửi thông báo

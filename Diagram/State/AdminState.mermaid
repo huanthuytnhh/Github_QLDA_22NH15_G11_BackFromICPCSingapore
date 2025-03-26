@@ -1,0 +1,99 @@
+---
+config:
+  theme: default
+  layout: elk
+  look: neo
+---
+stateDiagram
+  direction TB
+  state QLH {
+    direction TB
+    [*] --> XemDSHS:"Xem danh sách học sinh"
+    XemDSHS --> TimKiemHS:Tìm kiếm, lọc theo lớp
+    XemDSHS --> ThemHS:Chọn "Thêm học sinh"
+    XemDSHS --> SuaHS:Chọn "Sửa học sinh"
+    XemDSHS --> XoaHS:Chọn "Xóa học sinh"
+[*]    XemDSHS
+    TimKiemHS
+    ThemHS
+    SuaHS
+    XoaHS
+  }
+  state QLGV {
+    direction TB
+    [*] --> XemDSGV:"Xem danh sách giáo viên"
+    XemDSGV --> ThemGV:Chọn "Thêm giáo viên"
+    XemDSGV --> SuaGV:Chọn "Sửa giáo viên"
+    XemDSGV --> XoaGV:Chọn "Xóa giáo  giáo viên"
+[*]    XemDSGV
+    ThemGV
+    SuaGV
+    XoaGV
+  }
+  state QLSA {
+    direction TB
+    [*] --> XemDSSA:"Xem danh sách suất ăn"
+    XemDSSA --> ThemSA:Chọn "Thêm suất ăn"
+    XemDSSA --> SuaSA:Chọn "Sửa suất ăn"
+    XemDSSA --> XoaSA:Chọn "Xóa suất ăn"
+    ThemSA --> XacNhan:Nhập thông tin và lưu
+    SuaSA --> XacNhan:Chỉnh sửa và lưu
+    XoaSA --> XacNhan:Xác nhận xóa
+    XacNhan --> XemDSSA
+[*]    XemDSSA
+    ThemSA
+    SuaSA
+    XoaSA
+    XacNhan
+  }
+  state QLDD {
+    direction TB
+    [*] --> ChonLop:"Chọn lớp"
+    ChonLop --> XemDSHS_DD:Chọn lớp học
+    XemDSHS_DD --> ChinhSuaDD:Cập nhật trạng thái điểm danh
+    ChinhSuaDD --> LuuThayDoi:Lưu trạng thái điểm danh
+    LuuThayDoi --> XemDSHS_DD
+[*]    ChonLop
+    XemDSHS_DD
+    ChinhSuaDD
+    LuuThayDoi
+  }
+  state GTB {
+    direction TB
+    [*] --> NhapNDTB:"Nhập nội dung thông báo"
+    NhapNDTB --> ChonDoiTuong:Chọn học sinh, giáo viên, tất cả
+    ChonDoiTuong --> GuiTB:Gửi thông báo
+    GuiTB --> [*]
+[*]    NhapNDTB
+    ChonDoiTuong
+    GuiTB
+[*]  }
+  state XBT {
+    direction TB
+    [*] --> XemSLTC:"Xem số liệu tài chính"
+    XemSLTC --> XuatBC:Xuất báo cáo tài chính
+    XuatBC --> [*]
+[*]    XemSLTC
+    XuatBC
+[*]  }
+  [*] --> Dashboard
+  Dashboard --> QLH:Chọn "Quản lý học sinh"
+  Dashboard --> QLGV:Chọn "Quản lý giáo viên"
+  Dashboard --> QLSA:Chọn "Quản lý suất ăn"
+  Dashboard --> QLDD:Chọn "Quản lý điểm danh"
+  Dashboard --> GTB:Chọn "Gửi thông báo"
+  Dashboard --> XBT:Chọn "Xem báo cáo tài chính"
+  ThemHS --> XacNhan:Nhập thông tin và lưu
+  SuaHS --> XacNhan:Chỉnh sửa và lưu
+  XoaHS --> XacNhan:Xác nhận xóa
+  XacNhan --> XemDSHS
+  ThemGV --> XacNhan:Nhập thông tin và lưu
+  SuaGV --> XacNhan:Chỉnh sửa và lưu
+  XoaGV --> XacNhan:Xác nhận xóa
+  XacNhan --> XemDSGV
+  QLH:Quản lý học sinh
+  QLGV:Quản lý giáo viên
+  QLSA:Quản lý suất ăn
+  QLDD:Quản lý điểm danh
+  GTB:Gửi thông báo
+  XBT:Xem báo cáo tài chính

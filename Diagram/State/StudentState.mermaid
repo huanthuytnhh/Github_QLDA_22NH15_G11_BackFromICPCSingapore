@@ -1,0 +1,60 @@
+---
+config:
+  layout: elk
+  theme: default
+---
+stateDiagram
+  direction TB
+  state TX {
+    direction TB
+    [*] --> HienThiThucDon:"Hiển thị thực đơn theo ngày"
+    HienThiThucDon --> [*]
+[*]    HienThiThucDon
+[*]  }
+  state XPN {
+    direction TB
+    [*] --> ChonNgayVaLyDo:"Chọn ngày nghỉ và nhập lý do"
+    ChonNgayVaLyDo --> GuiYeuCau:"Nhấn gửi yêu cầu"
+    GuiYeuCau --> XacNhan:"Nhận xác nhận từ hệ thống"
+    XacNhan --> [*]
+[*]    ChonNgayVaLyDo
+    GuiYeuCau
+    XacNhan
+[*]  }
+  state TB {
+    direction TB
+    [*] --> HienThiDanhSachTB:"Hiển thị danh sách thông báo"
+    HienThiDanhSachTB --> [*]
+[*]    HienThiDanhSachTB
+[*]  }
+  state BT {
+    direction TB
+    [*] --> HienThiSoTien:"Hiển thị số tiền cuối tháng"
+    HienThiSoTien --> [*]
+[*]    HienThiSoTien
+[*]  }
+  state Chat {
+    direction TB
+    [*] --> ChonDoiTuong:"Chọn đối tượng chat (học sinh hoặc giáo viên)"
+    ChonDoiTuong --> MoGiaoDienChat:"Mở giao diện chat với đối tượng đã chọn"
+    MoGiaoDienChat --> NhapTinNhan:"Nhập tin nhắn"
+    NhapTinNhan --> GuiTinNhan:"Nhấn gửi"
+    GuiTinNhan --> HienThiPhanHoi:"Hiển thị phản hồi từ đối tượng"
+    HienThiPhanHoi --> NhapTinNhan:"Tiếp tục cuộc trò chuyện"
+    HienThiPhanHoi --> [*]:"Kết thúc chat"
+[*]    ChonDoiTuong
+    MoGiaoDienChat
+    NhapTinNhan
+    GuiTinNhan
+    HienThiPhanHoi
+[*]  }
+  [*] --> Dashboard
+  Dashboard --> TX:Chọn "Xem thực đơn"
+  Dashboard --> XPN:Chọn "Xin phép nghỉ"
+  Dashboard --> TB:Chọn "Xem thông báo"
+  Dashboard --> BT:Chọn "Xem báo cáo tài chính"
+  Dashboard --> Chat:Chọn "Chat"
+  TX:Xem thực đơn
+  XPN:Xin phép nghỉ
+  TB:Xem thông báo
+  BT:Xem báo cáo tài chính

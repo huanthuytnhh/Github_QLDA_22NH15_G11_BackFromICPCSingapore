@@ -1,0 +1,63 @@
+@startuml
+start
+
+:Hiển thị Dashboard;
+:Chọn chức năng;
+
+if (Chức năng được chọn là?) then (Quản lý học sinh)
+    :Xem danh sách học sinh;
+    :Tìm kiếm, lọc theo lớp;
+    if (Thêm học sinh?) then (Có)
+        :Nhập thông tin;
+        :Lưu học sinh;
+    endif
+    if (Sửa học sinh?) then (Có)
+        :Chỉnh sửa thông tin;
+        :Lưu thay đổi;
+    endif
+    if (Xóa học sinh?) then (Có)
+        :Xác nhận xóa;
+    endif
+elseif (Quản lý giáo viên)
+    :Xem danh sách giáo viên;
+    if (Thêm giáo viên?) then (Có)
+        :Nhập thông tin;
+        :Lưu giáo viên;
+    endif
+    if (Sửa giáo viên?) then (Có)
+        :Chỉnh sửa thông tin;
+        :Lưu thay đổi;
+    endif
+    if (Xóa giáo viên?) then (Có)
+        :Xác nhận xóa;
+    endif
+elseif (Quản lý suất ăn)
+    :Xem danh sách suất ăn;
+    if (Thêm suất ăn?) then (Có)
+        :Nhập thông tin;
+        :Lưu suất ăn;
+    endif
+    if (Sửa suất ăn?) then (Có)
+        :Chỉnh sửa thông tin;
+        :Lưu thay đổi;
+    endif
+    if (Xóa suất ăn?) then (Có)
+        :Xác nhận xóa;
+    endif
+elseif (Quản lý điểm danh)
+    :Chọn lớp học;
+    :Xem danh sách học sinh;
+    :Cập nhật trạng thái điểm danh;
+    :Lưu trạng thái điểm danh;
+elseif (Gửi thông báo)
+    :Nhập nội dung thông báo;
+    :Chọn đối tượng nhận (học sinh, giáo viên, tất cả);
+    :Gửi thông báo;
+    :Theo dõi trạng thái gửi;
+elseif (Xem báo cáo tài chính)
+    :Xem số liệu tài chính;
+    :Xuất báo cáo;
+endif
+
+stop
+@enduml

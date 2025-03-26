@@ -1,0 +1,44 @@
+sequenceDiagram
+participant Admin
+participant UI
+participant Server
+participant Database
+
+    %% Đăng nhập và hiển thị Dashboard
+    Admin->>UI: Nhập thông tin đăng nhập
+    UI->>Server: Gửi yêu cầu xác thực đăng nhập
+    Server->>Database: Query thông tin người dùng
+    Database-->>Server: Trả về kết quả xác thực
+    Server-->>UI: Gửi token và dữ liệu dashboard
+    UI-->>Admin: Hiển thị Admin Dashboard (Thống kê, danh mục chính)
+
+    %% Quản lý học sinh: Xem danh sách, thêm mới học sinh
+    Admin->>UI: Chọn "Quản lý học sinh"
+    UI->>Server: Yêu cầu danh sách học sinh
+    Server->>Database: Query danh sách học sinh
+    Database-->>Server: Trả về danh sách học sinh
+    Server-->>UI: Gửi dữ liệu học sinh
+    UI-->>Admin: Hiển thị bảng danh sách học sinh
+
+    Admin->>UI: Nhấn "Thêm học sinh mới"
+    UI->>Server: Gửi dữ liệu học sinh mới
+    Server->>Database: Lưu thông tin học sinh mới
+    Database-->>Server: Xác nhận lưu thành công
+    Server-->>UI: Trả về kết quả thêm học sinh
+    UI-->>Admin: Hiển thị thông báo thành công
+
+    %% Gửi thông báo
+    Admin->>UI: Chọn "Gửi thông báo"
+    UI->>Server: Gửi nội dung và chọn đối tượng (Giáo viên, Học sinh, Tất cả)
+    Server->>Database: Lưu thông báo vào hệ thống
+    Database-->>Server: Xác nhận lưu thông báo
+    Server-->>UI: Gửi kết quả gửi thông báo
+    UI-->>Admin: Hiển thị thông báo gửi thành công
+
+    %% Xem báo cáo tài chính
+    Admin->>UI: Chọn "Xem báo cáo tài chính"
+    UI->>Server: Yêu cầu dữ liệu báo cáo tài chính
+    Server->>Database: Query dữ liệu tài chính (sau khi trừ ngày nghỉ)
+    Database-->>Server: Trả về dữ liệu báo cáo
+    Server-->>UI: Gửi báo cáo tài chính
+    UI-->>Admin: Hiển thị báo cáo tài chính

@@ -1,0 +1,60 @@
+sequenceDiagram
+    participant Teacher
+    participant UI
+    participant Server
+    participant Database
+
+    %% Đăng nhập và hiển thị Dashboard
+    Teacher->>UI: Nhập thông tin đăng nhập
+    UI->>Server: Gửi yêu cầu xác thực đăng nhập
+    Server->>Database: Query thông tin giáo viên
+    Database-->>Server: Trả về kết quả xác thực
+    Server-->>UI: Gửi token và dữ liệu dashboard
+    UI-->>Teacher: Hiển thị Teacher Dashboard (Lớp học, thực đơn, điểm danh)
+
+    %% Điểm danh học sinh
+    Teacher->>UI: Chọn "Điểm danh lớp"
+    UI->>Server: Yêu cầu danh sách học sinh trong lớp
+    Server->>Database: Query danh sách học sinh
+    Database-->>Server: Trả về danh sách học sinh
+    Server-->>UI: Gửi dữ liệu học sinh
+    UI-->>Teacher: Hiển thị danh sách học sinh và trạng thái điểm danh
+
+    Teacher->>UI: Cập nhật trạng thái điểm danh (✅ Có mặt, ❌ Vắng mặt)
+    UI->>Server: Gửi dữ liệu điểm danh cập nhật
+    Server->>Database: Lưu trạng thái điểm danh
+    Database-->>Server: Xác nhận lưu thành công
+    Server-->>UI: Gửi kết quả cập nhật
+    UI-->>Teacher: Hiển thị thông báo điểm danh thành công
+
+    %% Xem danh sách học sinh
+    Teacher->>UI: Chọn "Xem danh sách học sinh"
+    UI->>Server: Gửi yêu cầu danh sách học sinh theo lớp
+    Server->>Database: Query danh sách học sinh
+    Database-->>Server: Trả về danh sách học sinh
+    Server-->>UI: Gửi dữ liệu học sinh
+    UI-->>Teacher: Hiển thị danh sách học sinh
+
+    %% Chỉnh sửa thông tin học sinh
+    Teacher->>UI: Chọn "Chỉnh sửa" học sinh
+    UI->>Server: Gửi dữ liệu chỉnh sửa học sinh
+    Server->>Database: Cập nhật thông tin học sinh
+    Database-->>Server: Xác nhận cập nhật thành công
+    Server-->>UI: Trả về kết quả cập nhật
+    UI-->>Teacher: Hiển thị thông báo cập nhật thành công
+
+    %% Xem thực đơn
+    Teacher->>UI: Chọn "Xem thực đơn"
+    UI->>Server: Yêu cầu thực đơn của ngày hôm nay
+    Server->>Database: Query thực đơn theo ngày
+    Database-->>Server: Trả về thực đơn
+    Server-->>UI: Gửi dữ liệu thực đơn
+    UI-->>Teacher: Hiển thị thực đơn hôm nay
+
+    %% Gửi thông báo
+    Teacher->>UI: Chọn "Gửi thông báo"
+    UI->>Server: Gửi nội dung và chọn đối tượng nhận (Học sinh, Phụ huynh)
+    Server->>Database: Lưu thông báo vào hệ thống
+    Database-->>Server: Xác nhận lưu thông báo
+    Server-->>UI: Gửi kết quả gửi thông báo
+    UI-->>Teacher: Hiển thị thông báo gửi thành công
